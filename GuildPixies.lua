@@ -56,7 +56,7 @@ local aGuildBank
 function GuildPixies:new(o)
     o = o or {}
     setmetatable(o, self)
-    self.__index = self 
+    self.__index = self
 
     -- initialize variables here
 
@@ -94,11 +94,11 @@ local function SummonPixies(itemDrawing, nTab, nInventorySlot)
     local itemType = itemDrawing:GetItemType()
     local tItemDI = itemDrawing:GetDetailedInfo().tPrimary
     -- Something we can use/not use?
-    if (tItemDI.arSpells and tItemDI.arClassRequirement and tItemDI.arClassRequirement.bRequirementMet) 
+    if (tItemDI.arSpells and tItemDI.arClassRequirement and tItemDI.arClassRequirement.bRequirementMet)
         or (tItemDI.arTradeskillReqs and tItemDI.arTradeskillReqs[1].bCanLearn) then
         local strPixieColor = "Green"
         if (tItemDI.arSpells and tItemDI.arSpells[1].strFailure) or
-            (tItemDI.arTradeskillReqs and not (tItemDI.tLevelRequirement.bRequirementMet 
+            (tItemDI.arTradeskillReqs and not (tItemDI.tLevelRequirement.bRequirementMet
                 and not tItemDI.arTradeskillReqs[1].bIsKnown)) then
             strPixieColor = "Red"
         end
@@ -110,7 +110,7 @@ local function SummonPixies(itemDrawing, nTab, nInventorySlot)
         tClassPixie.strSprite = ktAmpInfo[itemType].strSprite
         wndBankIcon:AddPixie(tClassPixie)
     else
-        wndBankIcon:SetBGColor("ffffffff")  
+        wndBankIcon:SetBGColor("ffffffff")
     end
 end
 
@@ -135,6 +135,9 @@ function GuildPixies:OnGuildBankTab(guildOwner, nTab)
 end
 
 function GuildPixies:OnGuildBankItem(guildOwner, nTab, nInventorySlot, itemUpdated, bRemoved)
+    if not aGuildBank.tWndRefs.tBankItemSlots or not aGuildBank.tWndRefs.tBankItemSlots[nInventorySlot] then
+        return
+    end
     local wndBankIcon = aGuildBank.tWndRefs.tBankItemSlots[nInventorySlot]:FindChild("BankItemIcon")
 
     wndBankIcon:DestroyAllPixies()

@@ -1,0 +1,5 @@
+package-as: GuildPixies
+enable-nolib-creation: no
+
+ignore:
+  - README.md

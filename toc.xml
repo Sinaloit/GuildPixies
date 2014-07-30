@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Addon Author="Sinaloit" APIVersion="9" Name="GuildPixies" Version="0.7" Description="Colorize AMPs in your GuildBank">
+<Addon Author="Sinaloit" APIVersion="9" Name="GuildPixies" Version="@project-version@" Description="Colorize AMPs in your GuildBank">
     <Script Name="GuildPixies.lua"/>
 </Addon>

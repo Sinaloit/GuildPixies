@@ -31,6 +31,24 @@ local ktAmpInfo = {
     [399] = { BGColor = "ffe75f00", strSprite = "CRB_Raid:sprRaid_Icon_Class_Spellslinger" }, -- Spellslinger
 }
 
+local ktQualitySizeMap = {
+    [3] = { tIcon = {  -8,  -8,  8,  8 } }, -- Slightly
+    [4] = { tIcon = { -12, -12, 12, 12 } }, -- Greatly
+    [5] = { tIcon = { -16, -16, 16, 16 } }, -- Attract
+}
+
+local ktTradeskillAdditives = {
+    [320] = { strText = "A", strSprite = "IconSprites:Icon_Achievement_UI_Tradeskills_Architect"},
+    [321] = { strText = "T", strSprite = "IconSprites:Icon_Achievement_UI_Tradeskills_Technologist"},
+}
+
+local ktTradeskillTierMap = {
+    [15] = "ItemQuality_Good",      -- Apprentice
+    [25] = "ItemQuality_Excellent", -- Journeyman
+    [35] = "ItemQuality_Superb",    -- Artisan
+    [45] = "ItemQuality_Legendary", -- Expert
+}
+
 local tUsePixie = {
     bLine = false,
     loc = {
@@ -39,6 +57,29 @@ local tUsePixie = {
     },
     strSprite = "WhiteFill",
     fRotation = 45,
+}
+
+local ktBaseCatalystOffsets = { -2, -2, 2, 2 }
+local tCatalystPixie =  {
+    loc = {
+        fPoints = { 0, 1, 0, 1 },
+        nOffsets = { -2, -2, 2, 2 },
+    },
+    strSprite = "WhiteFill",
+    fRotation = 45,
+}
+
+local tCatalystTypePixie = {
+    loc = {
+        fPoints = { 0.5, 0.5, 0.5, 0.5 },
+        nOffsets = { -10, -10, 10, 10 },
+    },
+    crText = "White",
+    strFont = "CRB_Interface9_BO",
+    flagsText = {
+        DT_CENTER = true,
+        DT_VCENTER = true,
+    },
 }
 
 local tClassPixie = {
@@ -104,6 +145,19 @@ local function SummonPixies(itemDrawing, nTab, nInventorySlot)
         end
         tUsePixie.cr = strPixieColor
         wndBankIcon:AddPixie(tUsePixie)
+    end
+    if ktTradeskillAdditives[itemType] then
+        local nQuality = itemDrawing:GetItemQuality()
+        tCatalystPixie.loc.nOffsets = ktQualitySizeMap[nQuality].tIcon
+        local crPowerLevel = ktTradeskillTierMap[itemDrawing:GetPowerLevel()]
+        tCatalystPixie.cr = crPowerLevel or "White"
+        for nIdx, nOffset in ipairs(ktBaseCatalystOffsets) do
+            tCatalystPixie.loc.nOffsets[nIdx] = nOffset * (nQuality - 1)
+        end
+        wndBankIcon:AddPixie(tCatalystPixie)
+
+        tCatalystTypePixie.strText = ktTradeskillAdditives[itemType].strText
+        wndBankIcon:AddPixie(tCatalystTypePixie)
     end
     if ktAmpInfo[itemType] then
         wndBankIcon:SetBGColor(ktAmpInfo[itemType].BGColor)

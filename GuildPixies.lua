@@ -16,7 +16,7 @@ local GuildPixies = {}
 local setmetatable, pairs, ipairs = setmetatable, pairs, ipairs
 
 -- Wildstar APIs
-local Apollo = Apollo
+local Apollo, GuildLib = Apollo, GuildLib
 
 -----------------------------------------------------------------------------------------------
 -- Constants
@@ -169,6 +169,7 @@ local function SummonPixies(itemDrawing, nTab, nInventorySlot)
 end
 
 function GuildPixies:OnGuildBankTab(guildOwner, nTab)
+    if guildOwner:GetType() ~= GuildLib.GuildType_Guild then return end
     local tItemList = {}
 
     for idx, tBankSlot in pairs(aGuildBank.tWndRefs.tBankItemSlots) do

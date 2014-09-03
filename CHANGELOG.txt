@@ -1,3 +1,7 @@
+0.85
+----
+Attempt to force Linefeeds in Client Changelog
+
 0.84
 ----
 Add CHANGELOG.txt

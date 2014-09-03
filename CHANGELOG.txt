@@ -1,0 +1,20 @@
+0.84
+----
+Add CHANGELOG.txt
+
+0.83
+----
+Only apply Pixies to GuildBank not WarParty
+
+0.82
+----
+Updated README
+
+0.81
+----
+Test tagging for autopackaging
+
+0.8
+----
+Add Colored LowerLeft corner for Quality
+Add letter for Tradeskill type
